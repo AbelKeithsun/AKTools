@@ -13,6 +13,9 @@ public class editFileName{
 	public static void main(String[] args) {
 		String mkPath = "F:\\my\\mouse\\0716生产";
 		List<String> readFileList = getFileName(mkPath, "");
+		/**
+		 * 文件名称数据处理
+		 */
 		for(String selectInfo:readFileList) {
 			int index = selectInfo.indexOf('.');
 //			System.out.println(selectInfo);
@@ -24,15 +27,25 @@ public class editFileName{
 			String threeEle = meats[2];
 //			System.out.println(date);
 			String newFileName = "政企-"+firstEle+"-"+date+"-"+readFileList.size()/2+"-x-"+threeEle+".txt";
-			File oldFile = new File(mkPath+"\\"+selectInfo);
-			File newFileName1 = new File(mkPath+"\\"+newFileName);
-			System.out.println(oldFile.getPath()+"\n");
-			if(oldFile.renameTo(newFileName1)) {
-				System.out.println("execute success");;
-			}else {
-				System.out.println("execute fail");
-			}
+			replaceName(mkPath, newFileName, selectInfo);
 			System.out.println(newFileName);
+		}
+	}
+	
+	/**
+	 * 执行替换名称的方法
+	 * @param mkPath
+	 * @param newFileName
+	 * @param oldFileName
+	 */
+	private static void replaceName(String mkPath,String newFileName,String oldFileName) {
+		File oldFile = new File(mkPath+"\\"+oldFileName);
+		File newFileName1 = new File(mkPath+"\\"+newFileName);
+		System.out.println(oldFile.getPath()+"\n");
+		if(oldFile.renameTo(newFileName1)) {
+			System.out.println("execute success");;
+		}else {
+			System.out.println("execute fail");
 		}
 	}
 	
