@@ -1,4 +1,4 @@
-package util;
+
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -26,16 +26,17 @@ import org.dom4j.io.SAXReader;
  */
 public class selectSpecified {
 	public static void main(String[] args) throws DocumentException {
-		String matchRule = "control-(\\w+).xml";
-		String mkdirPath = "D:\\company\\asiainfo\\mavenlibs\\git\\ngesop\\src\\main\\resources\\config";
-		List<String> readFileList = getFileName(mkdirPath,matchRule);
+		String matchRule = "control-(\\w+).xml";//输入文件名匹配规则
+		String mkdirPath = "D:\\company\\asiainfo\\mavenlibs\\git\\ngesop\\src\\main\\resources\\config";//输入文件地址
+		String resultFileName = "F:\\my\\result.xls";
+		List<String> readFileList = getFileName(mkdirPath,matchRule);//获得需要转化的文件名列表
 		List<Map<String,Object>> pathUrlList = null;
 		try {
-			pathUrlList = getDataOfXML(readFileList, mkdirPath);
+			pathUrlList = getDataOfXML(readFileList, mkdirPath);//获得目标数据
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		writeExcel(pathUrlList);
+		writeExcel(pathUrlList,resultFileName);//将数据写入目标文档
 		
 	}
 	
@@ -104,7 +105,7 @@ public class selectSpecified {
 	 * 将数据写入excel表格中
 	 * @param data
 	 */
-	private static void writeExcel(List<Map<String, Object>> data) {
+	private static void writeExcel(List<Map<String, Object>> data,String resultFileName) {
 		//创建一个 workbook 对应一个excel
 		HSSFWorkbook workbook = new HSSFWorkbook();
 		//在 workbook 中创建一个 sheet 对应 excel 中的sheet
@@ -128,7 +129,7 @@ public class selectSpecified {
 		}
 		//将文件保存到指定的位置
         try {
-            FileOutputStream fos = new FileOutputStream("F:\\my\\result.xls");
+            FileOutputStream fos = new FileOutputStream(resultFileName);
             workbook.write(fos);
             System.out.println("写入成功");
             fos.close();
